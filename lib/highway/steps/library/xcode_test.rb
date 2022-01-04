@@ -192,6 +192,7 @@ module Highway
           # Export JSON file report to environment variable
 
           context.env["XCODE_TEST_JSON_REPORT_PATH"] = temp_json_report_path
+          ENV["XCODE_TEST_JSON_REPORT_PATH"] = temp_json_report_path
 
           # Load the build report and a JUnit report into memory.
 
