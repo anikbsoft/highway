@@ -183,7 +183,7 @@ module Highway
           # that happened in the build.
 
           xcpretty_json_formatter_path = context.run_sh("xcpretty-json-formatter", bundle_exec: true, silent: true)
-          temp_json_report_path = File.join(Dir.mktmpdir(), "report.json")
+          temp_json_report_path = File.join(ENV["BUILD_ARTIFACTSTAGINGDIRECTORY"], "report.json")
 
           context.with_modified_env({"XCPRETTY_JSON_FILE_OUTPUT" => temp_json_report_path}) do
             context.run_sh(["cat", output_raw_path, "| xcpretty --formatter", xcpretty_json_formatter_path], bundle_exec: true, silent: true)
@@ -192,7 +192,6 @@ module Highway
           # Export JSON file report to environment variable
 
           context.env["XCODE_TEST_JSON_REPORT_PATH"] = temp_json_report_path
-          ENV["XCODE_TEST_JSON_REPORT_PATH"] = temp_json_report_path
 
           # Load the build report and a JUnit report into memory.
 
